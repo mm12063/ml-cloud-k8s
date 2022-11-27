@@ -18,8 +18,8 @@ Vagrant.configure("2") do |config|
   end
 
  # Copy your apiKey.json file so that you can login to IBM Cloud with a token
- api_key_loc = "~/.bluemix/cloudml_apiKey.json"
-#  api_key_loc = "~/.bluemix/apiKey.json"
+#  api_key_loc = "~/.bluemix/cloudml_apiKey.json"
+ api_key_loc = "~/.bluemix/apiKey.json"
  if File.exists?(File.expand_path(api_key_loc))
    config.vm.provision "file",
         source: api_key_loc,
@@ -44,26 +44,12 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
   end
 
-  ## Copy your .gitconfig file so that your git credentials are correct
-  #if File.exists?(File.expand_path("~/.gitconfig"))
-  #  config.vm.provision "file", source: "~/.gitconfig", destination: "~/.gitconfig"
-  #end
-#
-#  # Copy your ssh keys for github so that your git credentials work
-#  if File.exists?(File.expand_path("~/.ssh/id_rsa"))
-#    config.vm.provision "file", source: "~/.ssh/id_rsa", destination: "~/.ssh/id_rsa"
-#  end
-#
-#  # Copy your .vimrc file so that your VI editor looks right
-#  if File.exists?(File.expand_path("~/.vimrc"))
-#    config.vm.provision "file", source: "~/.vimrc", destination: "~/.vimrc"
-#  end
+  # Open the vm via vagrant ssh in /vagrant/
+  config.ssh.extra_args = ["-t", "cd /vagrant; bash --login"]
 
-
-
-#  ######################################################################
-  # Make sure that git and other dev utilities are available
-  ######################################################################
+#######################################################################
+# Make sure that git and other dev utilities are available
+######################################################################
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
     sudo dpkg --configure -a
@@ -75,9 +61,9 @@ Vagrant.configure("2") do |config|
     echo "Y" | apt install jq
   SHELL
 
-  ######################################################################
-  # Add minikube to VM
-  ######################################################################
+######################################################################
+# Add minikube to VM
+######################################################################
   config.vm.provision "shell", inline: <<-SHELL
     echo "\n************************************"
     echo " Installing Minikube..."
@@ -100,19 +86,12 @@ Vagrant.configure("2") do |config|
     sudo mv kubectl /usr/local/bin/kubectl
   SHELL
 
-  ######################################################################
-  # Add docker image before IBM Cloud
-  ######################################################################
+######################################################################
+# Add docker image before IBM Cloud
+######################################################################
   config.vm.provision "docker" do |d|
     d.pull_images "alpine:latest"
   end
-
-#   config.vm.provision "shell", inline: <<-SHELL
-#     echo "\n************************************"
-#     echo " Setting Minikube Docker env var..."
-#     echo "************************************\n"
-#     eval $(minikube docker-env)
-#   SHELL
 
 ######################################################################
 # Setup a IBM Cloud
@@ -127,36 +106,15 @@ Vagrant.configure("2") do |config|
   SHELL
 
   config.vm.provision "shell", inline: <<-SHELL
-    # Install user mode tools
     echo "**********************************************************************"
     echo "Installing IBM Cloud Plugins..."
     echo "**********************************************************************"
     ibmcloud plugin install container-service -r 'IBM Cloud'
     ibmcloud plugin install container-registry -r 'IBM Cloud'
     ibmcloud plugin install vpc-infrastructure -r 'IBM Cloud'
+    cp -r /root/.bluemix/plugins/ /home/vagrant/.bluemix/plugins/
+    sudo chown -R vagrant /home/vagrant/.bluemix/
     echo "Done!"
   SHELL
-
-  ######################################################################
-  # Setup a IBM Cloud and Kubernetes environment
-  ######################################################################
-#  config.vm.provision "shell", inline: <<-SHELL
-#    echo "\n************************************"
-#    echo " Installing IBM Cloud CLI..."
-#    echo "************************************\n"
-#    # Install IBM Cloud CLI as Vagrant user
-#    sudo -H -u vagrant sh -c 'curl -sL http://ibm.biz/idt-installer | bash'
-#    sudo -H -u vagrant sh -c "echo 'source <(kubectl completion bash)' >> ~/.bashrc"
-#    sudo -H -u vagrant sh -c "echo alias ic=/usr/local/bin/ibmcloud >> ~/.bash_aliases"
-#    sudo -H -u vagrant sh -c "bx plugin install machine-learning"
-#    echo "\n"
-#    echo "\n************************************"
-#    echo " IBM Cloud setup complete\n"
-#    echo " You can use alisas ic for ibmcloud command\n"
-#    echo " For the Kubernetes Dashboard use:"
-#    echo " kubectl proxy --address='0.0.0.0'\n"
-#    echo " Then open a browser to: http://localhost:8001/ui \n"
-#    echo "************************************\n"
-#  SHELL
 
 end
