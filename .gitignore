@@ -1,8 +1,8 @@
 .bluemix/
 .idea/
 .vagrant/
-model
-model/model.pt
+model/
+model/*
 ubuntu-bionic-18.04-cloudimg-console.log
 .DS_Store
 data
