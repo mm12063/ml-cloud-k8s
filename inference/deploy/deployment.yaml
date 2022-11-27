@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: infer-deployment
+  labels:
+    app: infer
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: infer
+  template:
+    metadata:
+      labels:
+        app: infer
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: infer
+        image: mm12063/mnist_infer:8.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+        volumeMounts:
+          - name: app-pv
+            mountPath: /home/app
+      volumes:
+        - name: app-pv
+          persistentVolumeClaim:
+            claimName: model-holder

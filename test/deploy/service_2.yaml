@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: image5000-2
+  labels:
+    app: image5000-2
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5000
+    targetPort: 5000
+    protocol: TCP
+  selector:
+    app: image5000-2

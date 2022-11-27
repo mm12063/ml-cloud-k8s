@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: model-holder
+spec:
+  storageClassName: ibmc-vpc-block-general-purpose
+  accessModes:
+    #Is this correct? ReadWriteMany
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+
+#  hostPath:
+#    path: /data
+
+#apiVersion: v1
+#kind: PersistentVolumeClaim
+#metadata:
+#  name: block-storage-pvc
+#  labels:
+#    billingType: "hourly"
+#    region: us-south
+#    zone: dal13
+#spec:
+#  accessModes:
+#    - ReadWriteOnce
+#  resources:
+#    requests:
+#      storage: 24Gi
+#  storageClassName: ibmc-block-silver
+
+
+#apiVersion: v1
+#kind: PersistentVolume
+#metadata:
+#  name: model-holder
+#spec:
+#  accessModes:
+#    - ReadWriteOnce
+#  capacity:
+#    storage: 2Gi
+#  hostPath:
+#    path: /data

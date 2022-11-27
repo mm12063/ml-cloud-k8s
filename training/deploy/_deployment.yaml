@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: train-deployment
+  labels:
+    app: train
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: train
+  template:
+    metadata:
+      labels:
+        app: train
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: train
+        image: mm12063/mnist_training:11.8
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+        volumeMounts:
+          - name: app-pv
+            mountPath: /home/app
+#        resources:
+#            requests:
+#              memory: "12Gi"
+#              cpu: 3
+#            limits:
+#              memory: "14Gi"
+#              cpu: 4
+#      terminationGracePeriodSeconds: 500
+      volumes:
+        - name: app-pv
+          persistentVolumeClaim:
+            claimName: model-holder
