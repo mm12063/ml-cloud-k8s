@@ -62,7 +62,7 @@ Vagrant.configure("2") do |config|
   SHELL
 
 ######################################################################
-# Add minikube to VM
+# Add Minikube and Kubectl
 ######################################################################
   config.vm.provision "shell", inline: <<-SHELL
     echo "\n************************************"
@@ -94,7 +94,7 @@ Vagrant.configure("2") do |config|
   end
 
 ######################################################################
-# Setup a IBM Cloud
+# Setup a IBM Cloud CLI
 ######################################################################
   config.vm.provision "shell", inline: <<-SHELL
     echo "**********************************************************************"
@@ -105,6 +105,9 @@ Vagrant.configure("2") do |config|
     echo "Done!"
   SHELL
 
+######################################################################
+# Setup a IBM Cloud plugins
+######################################################################
   config.vm.provision "shell", inline: <<-SHELL
     echo "**********************************************************************"
     echo "Installing IBM Cloud Plugins..."
