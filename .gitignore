@@ -3,7 +3,6 @@
 .vagrant/
 model/
 model/*
-ubuntu-bionic-18.04-cloudimg-console.log
 .DS_Store
 data
 *.log
