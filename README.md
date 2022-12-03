@@ -1,8 +1,10 @@
 # Working with K8S on IBM Cloud
 
-This is a Vagrant created VM containing packages to work with IBM Cloud. 
+This is a Vagrant created VM containing packages to work with IBM Cloud.
 
-First, please login to IBM Cloud and download the cluster config. Please ensure you have created a cluster using the name in /start_ic.sh. To login, execute:
+First, execute 'vagrant up', followed by 'vagrant ssh'
+
+Please login to IBM Cloud and download the cluster config. Please ensure you have created a cluster using the name in /start_ic.sh. To login, execute:
 
 sh start_ic.sh
 
