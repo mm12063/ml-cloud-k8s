@@ -10,11 +10,11 @@ sh start_ic.sh
 
 To deploy the manifests, please execute the following:
 
-## Deploy the required yaml files to K8S
-kubectl apply -f training/deploy/pvc.yaml
-kubectl apply -f training/deploy/pod.yaml
-kubectl apply -f inference/deploy/deployment.yaml
+### Deploy the required yaml files to K8S
+kubectl apply -f training/deploy/pvc.yaml\
+kubectl apply -f training/deploy/pod.yaml\
+kubectl apply -f inference/deploy/deployment.yaml\
 kubectl apply -f inference/deploy/service.yaml
 
-## Show the status of the cluster
+### Show the status of the cluster
 kubectl get all
