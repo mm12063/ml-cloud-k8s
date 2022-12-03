@@ -14,8 +14,6 @@ vagrant ssh
 sh start_ic.sh
 ```
 
-To deploy the manifests, please execute the following:
-
 ### Deploy the required yaml files to K8S
 ```
 kubectl apply -f training/deploy/pvc.yaml
