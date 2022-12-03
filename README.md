@@ -8,9 +8,10 @@ vagrant up
 vagrant ssh
 ```
 
-### Please login to IBM Cloud and download the cluster config. Please ensure you have created a cluster using the name in /start_ic.sh. To login, execute:
+### Login to IBM Cloud and download the cluster config. 
 
 ```
+# Please ensure you have created a cluster using the name in /start_ic.sh. To login, execute:
 sh start_ic.sh
 ```
 
