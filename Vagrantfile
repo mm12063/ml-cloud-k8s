@@ -18,7 +18,6 @@ Vagrant.configure("2") do |config|
   end
 
  # Copy your apiKey.json file so that you can login to IBM Cloud with a token
-#  api_key_loc = "~/.bluemix/cloudml_apiKey.json"
  api_key_loc = "~/.bluemix/apiKey.json"
  if File.exists?(File.expand_path(api_key_loc))
    config.vm.provision "file",
