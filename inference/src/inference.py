@@ -63,22 +63,3 @@ def get_inference(num_to_predict):
         errs.append(f"Can't find dir: {loc}")
 
     return actuals, preds, errs
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#
-# if __name__ == '__main__':
-#     main()
